@@ -35,6 +35,7 @@ SMG 0.4.0
 - Raspberry Pi 4
 - 2 x Silabs Thunderboard Sense 2 (TBS2 -- BRD4166A) 
 - Ubuntu Linux build environment on hardware or VirtualBox already used to build an initial MAD Light example from SMG
+***Note:* In the WorksWith2022 seminar, you may have used the Wirebridge USB Flashstick; the provided RCP is not compatible with this project.**
 
  
 ## Connections Required ##
@@ -43,25 +44,14 @@ SMG 0.4.0
 - Micro USB for TBS2/RasPi
 - Micro USB for TBS2/Linux 
  
-## Setup ##
- 
-<span style="color: red; font-weight: bold;">Remove this note before publishing!</span> 
-<span style="color: red;">Alex to add text to this required Setup section and/or combine with Step 1: Setup</span> 
-
-## How It Works ##
- 
-<span style="color: red; font-weight: bold;">Remove this note before publishing!</span> 
-<span style="color: red;">Alex to add text to this required How it Works section and/or combine with a project Overview</span> 
-
-## .sls Projects Used ##
- 
-N/A; for this tutorial, projects are managed in github rather than Simplicity Studio.
-
 
 ## Overview ##
 
-<span style="color: red; font-weight: bold;">Remove this note before publishing!</span> 
-<span style="color: red;">Alex to add text to this required section</span> 
+You have already built and interacted with the simple MAD Lighting App on a Thread network running on the OTBR on RaspberryPi. This tutorial is the next step; using a project template and modifying it to add features. 
+
+We will be creating a project from the template, using the ZAP tool to configure the endpoints, clusters and attributes, and then adding code to make it all work.  
+
+To simplify the experience and provide a resource to check against, we will be building a project substantially similar to one of several examples Silicon Labs provides within SMG. This tutorial is not focused on writing code, so we'll be copying the files and code we need from the **sl-newLight** example, but we will still need to make adjustments based on this particular project.
 
 ## Prerequisites ##
 <!--- 
@@ -76,22 +66,27 @@ or:
     - [Matter over Thead demo overview](https://github.com/SiliconLabs/matter/blob/release_0.3.0/docs/silabs/thread/DEMO_OVERVIEW.md)
     - [Matter lighting demo](https://github.com/SiliconLabs/matter/tree/release_0.4.0/examples/lighting-app/efr32)
     - [Creating a custom application](https://github.com/SiliconLabs/matter/blob/release_0.4.0/silabs_examples/template/efr32/HOW_TO_CREATE_A_CUSTOM_APP.md)
+- The **RaspberryPi OTBR .img** and **RCP** ***must_ be from SMG 0.4.0*** for this tutorial
 
 ***Note:** While the build in the MAD Light tutorial was done entirely in the Linux console, this tutorial works from the Ubuntu GUI. However, the only component that **requires** the Linux or Mac GUI is the **ZAP tool**. If necessary, this project can be built in the console without invoking the ZAP tool but it is best to use the tool if possible.*
 
 
-***Note:** Unless otherwise specified, the commands in the tutorial are run from inside the directory of the cloned Silabs Matter repository eg. **~/matter$**.*
+***Note:** Unless otherwise specified, the commands in the tutorial are run from inside the directory of the cloned Silabs Matter repository, eg. **~/matter$**.*
 
 
-You should already have the SiliconLabs Matter repository with submodules, but you may be on a prior version. If so, rename the matter directory, for example, `mv matter matter _0.3.0`
-Clone the SiliconLabs Matter repository with its submodules:
+- Silicon Labs Matter repository
+You should already have the SiliconLabs Matter repository with submodules, but you may be on a prior version. If so, check out the current version tag seen in [SMG]():
 
-```plain
-$ git clone --recurse-submodules https://github.com/SiliconLabs/matter.git
-```
+   `$ git checkout release_0.4.0`  
+   You may need to stash any changes you've made in the prior version:
+   `$ git stash`
+    Clone the SiliconLabs Matter repository with its submodules:
+   `
+   $ git clone --recurse-submodules https://github.com/SiliconLabs/matter.git
+   `
+
 
 ## Step 1: Set up your new project structure ##
-
 
 Make a copy of the folder **silabs\_examples/template** in same directory and name the folder **colorLight**
 
@@ -133,11 +128,11 @@ Run the ZAP tool, modify the clusters to fit the application requirement and sav
 
 *   Run the **ZAP tool** with the .zap file you just created at Step 1 as the argument:
 
-***Note:* If you do not have access to a GUI version of Ubuntu or MacOS to run ZAP, for now you can follow along here to understand the process and then copy the *zap-generated* directory from */zzz_generated/sl-newLight/* to *zzz_generated/colorLight*, and continue to modify and build the project as described.** 
+    `$ ./scripts/tools/zap/run_zaptool.sh silabs_examples/colorLight/colorLight_DataModel_config/colorLight.zap`
 
-```plain
-$ ./scripts/tools/zap/run_zaptool.sh silabs_examples/colorLight/colorLight_DataModel_config/colorLight.zap
-```
+    ***Note:* If you do not have access to a GUI version of Ubuntu or MacOS to run ZAP, this command will fail.** For now you can follow along here to understand the process and then copy the *zap-generated* directory from */zzz_generated/sl-newLight/* to *zzz_generated/colorLight*, and continue to modify and build the project as described.** 
+
+
 
 On startup, the GUI should look like this:
 
@@ -172,7 +167,7 @@ These two clusters are responsible for turning on/off the light and controlling 
 ![Attribute Selections](images/image2022-10-18_16-5-15.png)
 *   Click **Back** to return to the outer panel
 *   Select File → Save to save the profile you just modified
-*   Exit ZAP tool
+*   Exit the ZAP tool
 
 ## Step 4: Generate source and header files ##
 
@@ -183,16 +178,15 @@ Use the newly modified .zap file to create project files:
     *   Create a second folder named **"zap-generated"** inside your newly created folder - **colorLight** 
 *   Generate files:
 
-```plain
-$ ./scripts/tools/zap/generate.py silabs_examples/colorLight/colorLight_DataModel_config/colorLight.zap -o zzz_generated/colorLight/zap-generated/
-```
+    `$ ./scripts/tools/zap/generate.py silabs_examples/colorLight/colorLight_DataModel_config/colorLight.zap -o zzz_generated/colorLight/zap-generated/`
 
 *   Copy the file **af-gen-event.h** from **zzz-generated/*lighting-app*/zap-generated** to **zzz-generated/*colorLight*/zap-generated** 
     
 
 ## Step 5: Integrate RGB lighting and dimming functionality ##
 
-Copy the example light control source and header files to the current project from **~/matter/silabs_examples/sl-newLight/efr32/light_Modules/**
+Copy the **sl-newLight** example project's four light control source and header files to the current project from
+**~/matter/silabs_examples/sl-newLight/efr32/light_Modules/**
 
 | File | Copy To |
 | ------------------------- | -------------------------------------------------- | 
@@ -639,14 +633,29 @@ Flash the binary file located at **out/colorLight/BRD4166A/efr32-colorLight.s37*
 Once the firmware has been flashed onto your Matter Accessory device you can commission it from the Matter Hub using the commands provided in the Raspberry Pi image:
 
 | Command | Usage | Note |
-| ----------------------------------------------------------------------------------- | ------------------------- | --------------------- |
+| ---------------------------| ----------------- | --------------------- |
 | mattertool startThread | Starts the thread network on the OTBR |    |
 | mattertool bleThread | Starts commissioning of a MAD using chip-tool |   |
 | mattertool -h | Gets the Node ID of your MAD |    |
 | mattertool on | Sends an **on** command to the MAD using chip-tool |    |
 | mattertool off | Sends an **off** command to the MAD using chip-tool |   |
-| mattertool levelcontrol move-to-level {desired\_level} 0 1 1 {node\_ID} 1 | Sets the brightness level | Level range: 0 - 254 |
+| mattertool levelcontrol move-to-level {desired\_level} 0 1 1 {node\_ID} 1 | Sets the brightness level (color intensity) | Level range: 0 - 254 |
 | mattertool colorcontrol move-to-saturation {desired\_saturation} 0 1 1 {node\_ID} 1 | Sets the saturation value | Value range: 0 - 254 |
 | mattertool colorcontrol move-to-hue {desired\_hue} 0 0 1 1 {node\_ID} 1  | Sets the Hue value | Value range: 0 - 254 |
 
-If you don't know what values of Hue and Saturation you need, look-up "RGB to HSV color conversion" online. Note that "Value" is the current level/intensity.
+The HSV (Hue/Saturation/Intensity) colorspace as it relates to RGB LEDs is a complicated subject, and converting to an 8 bit range adds to that. You can find a lot of material online regarding this system; [this Wikipedia article](https://en.wikipedia.org/wiki/HSL_and_HSV) is a good place to begin.
+
+Here are some fun values to test out using the mattertool commands:
+
+| Hue | Saturation | Level |
+| :-: | :-: | :-: |
+| 45 | 5 | 10 |
+| 90 | 54 | 10 |
+| 135 | 243 | 210 |
+| 175 | 5 | 10 |
+| 220 | 24 | 90 |
+
+For example, if your Node ID is **22913**, issue the following 3 commands:
+`$ mattertool colorcontrol move-to-hue 220 0 0 1 1 22913 1`
+`$ mattertool colorcontrol move-to-saturation 24 0 1 1 22913 1`
+`$ mattertool levelcontrol move-to-level 90 0 1 1 22913 1`

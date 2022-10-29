@@ -655,7 +655,10 @@ Here are some fun values to test out using the mattertool commands:
 | 175 | 5 | 10 |
 | 220 | 24 | 90 |
 
-For example, if your Node ID is **22913**, issue the following 3 commands:
-`$ mattertool colorcontrol move-to-hue 220 0 0 1 1 22913 1`
-`$ mattertool colorcontrol move-to-saturation 24 0 1 1 22913 1`
+For example, if your Node ID is **22913**, issue the following 3 commands:  
+
+`$ mattertool colorcontrol move-to-hue 220 0 0 1 1 22913 1`  
+
+`$ mattertool colorcontrol move-to-saturation 24 0 1 1 22913 1`  
+
 `$ mattertool levelcontrol move-to-level 90 0 1 1 22913 1`

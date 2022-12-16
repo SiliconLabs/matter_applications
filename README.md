@@ -18,6 +18,7 @@ The Silicon Labs Matter stack allows for a wide variety applications to be built
 ## Examples ##
 
 - [Matter over Thread Custom Matter Accessory Device: Color Control Light](/matter_thread_custom_mad/README.md)
+- [Matter over Thread Multi Switch Matter Accessory Device](/matter_thread_multi_switch_mad/README.md)
 
 
 ## Documentation ##

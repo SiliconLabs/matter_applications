@@ -75,12 +75,12 @@ or:
 
 - Silicon Labs Matter repository: You should already have the SiliconLabs Matter repository with submodules, but you may be on a prior version. If so, check out the current version tag seen in [SMG](https://github.com/SiliconLabs/matter):  
    `$ git fetch`  
-   `$ git checkout release_0.1.0`  
+   `$ git checkout release_1.0.0`  
    You may need to stash any changes you've made in the prior version:
    `$ git stash`  
    To avoid issues related to modification/submodules not properly checked out, you may want to clone the SiliconLabs Matter repository with its submodules:  
    `$ git clone https://github.com/SiliconLabs/matter.git`  
-   `$ git checkout release_0.1.0`  
+   `$ git checkout release_1.0.0`  
    `$ git submodule update --init --recursive`  
 
 ## Step 1: Use ZAP tool ##
@@ -239,6 +239,28 @@ Modify the file **AppTask.cpp** inside **~/matter/examples/light-switch-app/efr3
             DeviceLayer::PlatformMgr().ScheduleWork(SwitchWorkerFunction, reinterpret_cast<intptr_t>(data));
         }
     }
+    ```
+
+*   Handle button pressing events with their corresponding handlers:
+
+    ```cpp
+    ...
+    if (buttonHandle == APP_LIGHT_SWITCH && btnAction == SL_SIMPLE_BUTTON_PRESSED)
+        {
+            button_event.Handler = Btn1ActionEventHandler;
+            sAppTask.PostEvent(&button_event);
+        }
+        else if (buttonHandle == APP_LIGHT_SWITCH_2 && btnAction == SL_SIMPLE_BUTTON_PRESSED)
+        {
+            button_event.Handler = Btn2ActionEventHandler;
+            sAppTask.PostEvent(&button_event);
+        }
+        else if (buttonHandle == APP_FUNCTION_BUTTON)
+        {
+            button_event.Handler = BaseApplication::ButtonHandler;
+            sAppTask.PostEvent(&button_event);
+        }
+    ...
     ```
 
 ## Step 5: Add a new button instance source file: ##

@@ -1,7 +1,7 @@
 <table border="0">
   <tr>
     <td align="left" valign="middle">
-    <h1>Tutorial: Matter over OpenThread Multi Switch Device</h1>
+    <h1>Tutorial: Matter over OpenThread Multi-switch Device</h1>
   </td>
   <td align="left" valign="middle">
     <a href="https://www.silabs.com/wireless/matter">
@@ -16,7 +16,7 @@
   </tr>
 </table>
 
-# Multi switch MAD #
+# Multi-switch MAD #
 ![Type badge](https://img.shields.io/badge/Type-Virtual%20application-green)
 ![Technology badge](https://img.shields.io/badge/Technology-Matter-green)
 ![License badge](https://img.shields.io/badge/License-Zlib-green)
@@ -24,7 +24,7 @@
 
 ## Summary ##
 
-This tutorial will show you how to create and build a multi switch app (multi switch Matter Accessory Device) from the Silicon Labs Matter Github (SMG) repository's existing light-switch app.
+This tutorial will show you how to create and build a multi-switch app (multi-endpoint Matter Accessory Device) from the Silicon Labs Matter Github (SMG) repository's existing light-switch app.
 
 ## Silicon Labs Matter Github version ##
 
@@ -34,8 +34,8 @@ release_1.0.0
 
 - Raspberry Pi 4 using the Matter Hub Raspberry Pi Image
 - 1 x Silabs Thunderboard Sense 2 (TBS2 -- BRD4166A)
-- 1 eligible board capable of running the light switch app. Refer to [Matter over Thead Light Switch](https://github.com/SiliconLabs/matter/tree/release_1.0.0/examples/light-switch-app)
-- 2 eligible boards capable of running the lighting app. Refer to [Matter over Thead Lighting App](https://github.com/SiliconLabs/matter/blob/release_1.0.0/examples/lighting-app/efr32/README.md)
+- 1 eligible board capable of running the light switch app. Refer to [Matter over Thread Light Switch](https://github.com/SiliconLabs/matter/tree/release_1.0.0/examples/light-switch-app)
+- 2 eligible boards capable of running the lighting app. Refer to [Matter over Thread Lighting App](https://github.com/SiliconLabs/matter/blob/release_1.0.0/examples/lighting-app/efr32/README.md)
 
 ## Connections Required ##
  
@@ -47,13 +47,13 @@ release_1.0.0
 
 You have already built and interacted with the Light Switch App on a Thread network. This tutorial is the next step; using the existing Light Switch App and modifying it to add features (in this case additional endpoints).
 
-We will be modifying the Light Switch app, using the ZAP tool to configure the endpoints, clusters and attributes, and then adding code to make it all work. 
+We will be modifying the Light Switch app, using the ZAP tool to configure the endpoints (The new switch is added within ZAP as a new endpoint), clusters and attributes, and then adding code to make it all work. 
 
-A multi switch device is a device (in this case a Matter Accessory Device) that contains 2 or more switches controlling other Matter devices in the same Matter network (one device per switch). This application is extended from the light switch app which contains only one switch.
+A multi-switch device is a device (in this case a Matter Accessory Device) that contains 2 or more switches controlling other Matter devices in the same Matter network (one device per switch). This application is extended from the light switch app which contains only one switch.
 
-This tutorial aims at people who have gone through the light switch example at: [Matter over Thead Light Switch](https://github.com/SiliconLabs/matter/tree/release_1.0.0/examples/light-switch-app) and want to customize/extend your application.
+This tutorial aims at people who have gone through the light switch example at: [Matter over Thread Light Switch](https://github.com/SiliconLabs/matter/tree/release_1.0.0/examples/light-switch-app) and want to customize/extend your application.
 
-To simplify the experience and provide a resource to check against, we will be providing a completed multi switch project, which is the "light-switch-app" folder. Following this tutorial would create the exact same project.
+To simplify the experience and provide a resource to check against, we will be providing a completed multi-switch project, which is the "light-switch-app" folder. Following this tutorial would create the exact same project.
 
 ## Prerequisites ##
 This tutorial expects you to have built a MAD on your local setup, following either:
@@ -62,10 +62,10 @@ This tutorial expects you to have built a MAD on your local setup, following eit
 or:
 
 - The guides found in SMG:
-    - [Matter over Thead demo overview](https://github.com/SiliconLabs/matter/blob/release_0.3.0/docs/silabs/thread/DEMO_OVERVIEW.md)
-    - [Matter over Thead Light Switch](https://github.com/SiliconLabs/matter/tree/release_1.0.0/examples/light-switch-app)
-    - [Creating a custom application](https://github.com/SiliconLabs/matter/blob/release_0.4.0/silabs_examples/template/efr32/HOW_TO_CREATE_A_CUSTOM_APP.md)
-- The **RaspberryPi OTBR .img** and **RCP** ***must_ be from SMG 0.1.0*** for this tutorial
+    - [Matter over Thread demo overview](https://github.com/SiliconLabs/matter/blob/release_1.0.0/docs/silabs/thread/DEMO_OVERVIEW.md)
+    - [Matter over Thread Light Switch](https://github.com/SiliconLabs/matter/tree/release_1.0.0/examples/light-switch-app)
+    - [Creating a custom application](https://github.com/SiliconLabs/matter/blob/release_1.0.0/silabs_examples/template/efr32/HOW_TO_CREATE_A_CUSTOM_APP.md)
+- The **RaspberryPi OTBR .img** and **RCP** ***must_ be from SMG 1.0.0*** for this tutorial
 
 ***Note:** While the build in the tutorial was done entirely with the Linux console, this tutorial involves the Ubuntu GUI. However, the only component that **requires** the Linux or Mac GUI is the **ZAP tool**. Without ZAP tool, you cannot modify the Endpoints/clusters of your MAD.*
 
@@ -73,12 +73,12 @@ or:
 ***Note:** Unless otherwise specified, the commands in the tutorial are run from inside the directory of the cloned Silabs Matter repository, eg. **~/matter$**.*
 
 
-- Silicon Labs Matter repository: You should already have the SiliconLabs Matter repository with submodules, but you may be on a prior version. If so, check out the current version tag seen in [SMG](https://github.com/SiliconLabs/matter):  
+- Silicon Labs Matter repository: You should already have the Silicon Labs Matter repository with submodules, but you may be on a prior version. If so, check out the current version tag seen in [SMG](https://github.com/SiliconLabs/matter):  
    `$ git fetch`  
    `$ git checkout release_1.0.0`  
    You may need to stash any changes you've made in the prior version:
    `$ git stash`  
-   To avoid issues related to modification/submodules not properly checked out, you may want to clone the SiliconLabs Matter repository with its submodules:  
+   To avoid issues related to modification/submodules not properly checked out, you may want to clone the Silicon Labs Matter repository with its submodules:  
    `$ git clone https://github.com/SiliconLabs/matter.git`  
    `$ git checkout release_1.0.0`  
    `$ git submodule update --init --recursive`  
@@ -155,7 +155,7 @@ Modify the file **AppTask.h** inside **~/matter/examples/light-switch-app/efr32/
 *   Include additional header file: **"button_btn2_instance.h"**
 *   Modify the class **AppTask** to add handlers for button pressing events:
 
-    Repleace this:
+    Replace this:
 
     ```cpp
     static void SwitchActionEventHandler(AppEvent * aEvent);
@@ -174,7 +174,7 @@ Modify the file **AppTask.cpp** inside **~/matter/examples/light-switch-app/efr3
     ```cpp
     #define APP_LIGHT_SWITCH_2 &sl_button_btn2
     ```
-*   Repleace this:
+*   Replace this:
 
     ```cpp
     bool mCurrentButtonState = false;
@@ -187,8 +187,8 @@ Modify the file **AppTask.cpp** inside **~/matter/examples/light-switch-app/efr3
     bool CurrentButton2State = false;
     ```
 
-*   Modify and add button event handler functions, in which we will handle approprite actions for each button:
-    Repleace the whole function AppTask::SwitchActionEventHandler(AppEvent * aEvent) with these functions:
+*   Modify and add button event handler functions, in which we will handle appropriate actions for each button:
+    Replace the whole function AppTask::SwitchActionEventHandler(AppEvent * aEvent) with these functions:
 
     ```cpp
     void AppTask::Btn1ActionEventHandler(AppEvent * aEvent)
@@ -267,7 +267,7 @@ Modify the file **AppTask.cpp** inside **~/matter/examples/light-switch-app/efr3
 
 **~/matter/examples/light-switch-app/efr32/src/button_btn2_instance.c**
 
-This file will declare an instance for our addtional button.
+This file will declare an instance for our additional button.
 
 ```cpp
 #include "button_btn2_instance.h"
@@ -307,7 +307,7 @@ Modify the file **main.cpp** inside **~/matter/examples/light-switch-app/efr32/s
     extern "C" void button_btn2_init_instance();
     ```
 
-*   Run your initiazation function:
+*   Run your initialization function:
 
     ```cpp
     ...
@@ -372,18 +372,18 @@ Flash the binary file located at **out/light-switch/\<Your board name>/multi-lig
 
 Once the firmware has been flashed onto your Matter Accessory device you can follow these steps to run the multi-switch application:
 
-* Power off your multi switch board
+* Power off your multi-switch board
 * Flash two other boards with the lighting application and turn them on
-* Commision these two lighting Matter devices with your OTBR, note that 31670 and 31671 will be their node IDs:
-  * $ mattertool pairing ble-thread 31670 hex:\<your thread dataset> 20202021 3840
-  * $ mattertool pairing ble-thread 31671 hex:\<your thread dataset> 20202021 3840
-* Power on your multi switch board
-* Commision the Matter multi switch with your OTBR, note that 31676 will be the node ID for your multi-switch:
-  * $ mattertool pairing ble-thread 31676 hex:\<your thread dataset> 20202021 3840
+* Commission these two lighting Matter devices with your OTBR, note that 31670 and 31671 will be their node IDs:
+  * `$ mattertool pairing ble-thread 31670 hex:<your thread dataset> 20202021 3840`  
+  * `$ mattertool pairing ble-thread 31671 hex:<your thread dataset> 20202021 3840`  
+* Power on your multi-switch board
+* Commission the Matter multi-switch with your OTBR, note that 31676 will be the node ID for your multi-switch:
+  * `$ mattertool pairing ble-thread 31676 hex:<your thread dataset> 20202021 3840`  
 * Use the mattertool to add the proper ACL for the light devices, this will write ACL to the accesscontrol clusters:
-  * $ mattertool accesscontrol write acl '[{"fabricIndex": 1, "privilege": 5, "authMode": 2, "subjects": [112233], "targets": null}, {"fabricIndex": 1, "privilege": 3, "authMode": 2, "subjects": [31676], "targets": [{"cluster": 6, "endpoint": 1, "deviceType": null}, {"cluster": 8, "endpoint": 1, "deviceType": null}]}]' 31670 0
-  * $ mattertool accesscontrol write acl '[{"fabricIndex": 1, "privilege": 5, "authMode": 2, "subjects": [112233], "targets": null}, {"fabricIndex": 1, "privilege": 3, "authMode": 2, "subjects": [31676], "targets": [{"cluster": 6, "endpoint": 1, "deviceType": null}, {"cluster": 8, "endpoint": 1, "deviceType": null}]}]' 31671 0
+  * `$ mattertool accesscontrol write acl '[{"fabricIndex": 1, "privilege": 5, "authMode": 2, "subjects": [112233], "targets": null}, {"fabricIndex": 1, "privilege": 3, "authMode": 2, "subjects": [31676], "targets": [{"cluster": 6, "endpoint": 1, "deviceType": null}, {"cluster": 8, "endpoint": 1, "deviceType": null}]}]' 31670 0`  
+  * `$ mattertool accesscontrol write acl '[{"fabricIndex": 1, "privilege": 5, "authMode": 2, "subjects": [112233], "targets": null}, {"fabricIndex": 1, "privilege": 3, "authMode": 2, "subjects": [31676], "targets": [{"cluster": 6, "endpoint": 1, "deviceType": null}, {"cluster": 8, "endpoint": 1, "deviceType": null}]}]' 31671 0`  
 * Bind the light from each lighting device to the endpoint (switch) controlling it:
-  * $ mattertool binding write binding '[{"fabricIndex": 1, "node": 31670, "endpoint": 1, "cluster": 6}, {"fabricIndex": 1, "node": 31670, "endpoint": 1, "cluster": 8}]' 31676 1
-  * $ mattertool binding write binding '[{"fabricIndex": 1, "node": 31671, "endpoint": 1, "cluster": 6}, {"fabricIndex": 1, "node": 31671, "endpoint": 1, "cluster": 8}]' 31676 3
+  * `$ mattertool binding write binding '[{"fabricIndex": 1, "node": 31670, "endpoint": 1, "cluster": 6}, {"fabricIndex": 1, "node": 31670, "endpoint": 1, "cluster": 8}]' 31676 1`  
+  * `$ mattertool binding write binding '[{"fabricIndex": 1, "node": 31671, "endpoint": 1, "cluster": 6}, {"fabricIndex": 1, "node": 31671, "endpoint": 1, "cluster": 8}]' 31676 3`  
 * Control each individual light using their according buttons.

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="uc.module.setup.apack_zclConfigurator.com.silabs.ss.framework.project.toolchain.core.default#com.silabs.ss.tool.ide.arm.toolchain.gnu.cdt:10.3.1.20210824.gcc" propertyScope="project">
+  <folder name="autogen">
+    <folder name="zap-generated">
+      <folder name="app">
+        <file name="PluginApplicationCallbacks.h" builtin="true" generated="true"/>
+      </folder>
+      <file name="access.h" builtin="true" generated="true"/>
+      <file name="callback-stub.cpp" builtin="true" generated="true"/>
+      <file name="CHIPClientCallbacks.h" builtin="true" generated="true"/>
+      <file name="CHIPClusters.h" builtin="true" generated="true"/>
+      <file name="endpoint_config.h" builtin="true" generated="true"/>
+      <file name="gen_config.h" builtin="true" generated="true"/>
+      <file name="IMClusterCommandHandler.cpp" builtin="true" generated="true"/>
+    </folder>
+  </folder>
+  <includePath uri="studio:/project/autogen/zap-generated"/>
+  <includePath uri="studio:/project/autogen/zap-generated/app"/>
+</project>

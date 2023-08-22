@@ -1,0 +1,133 @@
+# Silicon Labs Project Configuration Tools: slcp, v0, Component selection file.
+project_name: matter_thread_ww2023_mat-204_lock_light_mad
+label: matter_thread_ww2023_mat-204_lock_light_mad
+description: |
+  Matter Lock App
+package: Matter
+quality: production
+readme:
+- {path: README.md}
+source:
+- {path: src/AppTask.cpp}
+- {path: src/LockManager.cpp}
+- {path: src/main.cpp}
+- {path: src/ZclCallbacks.cpp}
+- {path: src/EventHandlerLibShell.cpp}
+include:
+- path: include
+  file_list:
+  - {path: AppConfig.h}
+  - {path: AppEvent.h}
+  - {path: AppTask.h}
+  - {path: LockManager.h}
+  - {path: CHIPProjectConfig.h}
+  - {path: EventHandlerLibShell.h}
+sdk: {id: gecko_sdk, version: 4.3.0}
+toolchain_settings:
+- {value: -std=gnu++17, option: gcc_c++_compiler_option}
+component:
+- {from: matter, id: matter_groups}
+- {from: matter, id: matter_group_key_mgmt}
+- {from: matter, id: matter_segger_rtt}
+- {from: matter, id: matter_descriptor}
+- instance: [btn0, btn1]
+  id: simple_button
+- {from: matter, id: matter_ethernet_network_diagnostics}
+- {from: matter, id: silabs_factory_data_provider}
+- {from: matter, id: matter_localization_configuration}
+- {from: matter, id: matter_diagnostic_logs}
+- {from: matter, id: matter_mbedtls}
+- {from: matter, id: matter_ble}
+- {from: matter, id: matter_basic}
+- {from: matter, id: matter_network_commissioning}
+- {from: matter, id: matter_operational_credentials}
+- {from: matter, id: matter_administrator_commissioning}
+- {from: matter, id: matter_time_format_localization}
+- {from: matter, id: matter_door_lock}
+- {from: matter, id: matter_on_off}
+- {from: matter, id: matter_wstk_leds}
+- {from: matter, id: matter_thread_ftd}
+- {from: matter, id: matter}
+- {from: matter, id: matter_ota_requestor}
+- {from: matter, id: matter_software_diagnostics}
+- {from: matter, id: matter_lcd}
+- {from: matter, id: matter_power_source_configuration}
+- {from: matter, id: matter_access_control}
+- {from: matter, id: matter_qr_code}
+- {from: matter, id: matter_general_commissioning}
+- {from: matter, id: matter_identify}
+- {from: matter, id: matter_gatt}
+- {from: matter, id: matter_wifi_network_diagnostics}
+- instance: [led0, led1]
+  id: simple_led
+- {id: device_init}
+- {id: brd4002a}
+- {from: matter, id: matter_general_diagnostics}
+- {id: rail_util_pti}
+- {from: matter, id: matter_thread_network_diagnostics}
+- {id: EFR32MG24B210F1536IM48}
+- {from: matter, id: matter_configuration_over_swo}
+- {from: matter, id: matter_level_control}
+- {from: matter, id: matter_ota_support}
+- {from: matter, id: matter_user_label}
+- {from: matter, id: matter_fixed_label}
+- {id: brd4186c}
+- {from: matter, id: matter_shell}
+- {from: matter, id: matter_power_source}
+- {from: matter, id: app_common}
+define:
+- {name: CHIP_CRYPTO_PLATFORM, value: '1'}
+- {name: OPENTHREAD_CONFIG_LOG_OUTPUT, value: OPENTHREAD_CONFIG_LOG_OUTPUT_APP}
+- {name: _WANT_REENT_SMALL, value: '1'}
+- {name: IS_DEMO_LOCK, value: '1'}
+- {name: NVM3_DEFAULT_NVM_SIZE, value: '40960'}
+- {name: NVM3_DEFAULT_MAX_OBJECT_SIZE, value: '4092'}
+config_file:
+- {path: config/common/lock-app.zap, directory: common}
+template_contribution:
+- condition: [device_series_1]
+  name: memory_flash_start
+  priority: 0
+  value: 0
+- condition: [device_series_1]
+  name: memory_flash_size
+  priority: 0
+  value: 1046528
+- condition: [device_series_2]
+  name: memory_flash_start
+  priority: 0
+  value: 134242304
+- condition: [device_series_2]
+  name: memory_flash_size
+  priority: 0
+  value: 1540096
+requires:
+- condition: [device_series_1]
+  name: matter_drivers_series_1
+- condition: [device_series_2]
+  name: matter_drivers_series_2
+configuration:
+- condition: [matter_thread_cert_libs]
+  name: SL_MBEDTLS_KEY_EXCHANGE_ECDHE_ECDSA_ENABLED
+  value: '1'
+- condition: [matter_thread_cert_libs]
+  name: SL_MBEDTLS_KEY_EXCHANGE_PSK_ENABLED
+  value: '1'
+- condition: [matter_thread_coap_cert_libs]
+  name: OPENTHREAD_CONFIG_COAP_API_ENABLE
+  value: '1'
+- condition: [matter_thread_coap_cert_libs]
+  name: OPENTHREAD_CONFIG_COAP_OBSERVE_API_ENABLE
+  value: '1'
+- condition: [matter_thread_coap_cert_libs]
+  name: OPENTHREAD_CONFIG_COAP_SECURE_API_ENABLE
+  value: '1'
+- {name: SL_STACK_SIZE, value: '4608'}
+ui_hints:
+  highlight:
+  - {path: '', focus: true}
+  - {path: README.md}
+sdk_extension:
+- {id: matter, version: 2.0.0}
+post_build: {path: matter_thread_ww2023_mat-204_lock.slpb, profile: matter_thread_ww2023_mat-204_lock}
+

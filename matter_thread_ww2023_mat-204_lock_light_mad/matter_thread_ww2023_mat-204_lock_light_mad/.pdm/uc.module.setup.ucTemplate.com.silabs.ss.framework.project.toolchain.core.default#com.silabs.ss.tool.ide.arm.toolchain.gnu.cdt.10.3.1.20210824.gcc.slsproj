@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="uc.module.setup.ucTemplate.com.silabs.ss.framework.project.toolchain.core.default#com.silabs.ss.tool.ide.arm.toolchain.gnu.cdt:10.3.1.20210824.gcc" propertyScope="project">
+  <folder name="autogen">
+    <file name="sl_bluetooth.c" builtin="true" generated="true"/>
+    <file name="sl_bluetooth.h" builtin="true" generated="true"/>
+    <file name="sl_board_default_init.c" builtin="true" generated="true"/>
+    <file name="sl_application_type.h" builtin="true" generated="true"/>
+    <file name="RTE_Components.h" builtin="true" generated="true"/>
+    <file name="sl_component_catalog.h" builtin="true" generated="true"/>
+    <file name="sl_device_init_clocks.c" builtin="true" generated="true"/>
+    <file name="sl_event_handler.h" builtin="true" generated="true"/>
+    <file name="sl_event_handler.c" builtin="true" generated="true"/>
+    <file name="sli_mbedtls_config_autogen.h" builtin="true" generated="true"/>
+    <file name="sli_mbedtls_config_transform_autogen.h" builtin="true" generated="true"/>
+    <file name="sl_ot_init.c" builtin="true" generated="true"/>
+    <file name="sl_ot_init.h" builtin="true" generated="true"/>
+    <file name="sli_psa_config_autogen.h" builtin="true" generated="true"/>
+    <file name="sli_psa_builtin_config_autogen.h" builtin="true" generated="true"/>
+    <file name="sl_simple_button_instances.c" builtin="true" generated="true"/>
+    <file name="sl_simple_button_instances.h" builtin="true" generated="true"/>
+    <file name="sl_simple_led_instances.c" builtin="true" generated="true"/>
+    <file name="sl_simple_led_instances.h" builtin="true" generated="true"/>
+    <file name="sl_ot_custom_cli.c" builtin="true" generated="true"/>
+    <file name="linkerfile.ld" builtin="true" generated="true"/>
+    <file name="sl_uartdrv_init.c" builtin="true" generated="true"/>
+    <file name="sl_uartdrv_instances.h" builtin="true" generated="true"/>
+  </folder>
+  <includePath uri="studio:/project/autogen"/>
+</project>

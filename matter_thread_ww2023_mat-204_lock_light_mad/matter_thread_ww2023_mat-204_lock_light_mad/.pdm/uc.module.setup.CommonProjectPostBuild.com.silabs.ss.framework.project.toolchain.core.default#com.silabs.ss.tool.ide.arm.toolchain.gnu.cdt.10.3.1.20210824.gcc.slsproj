@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="uc.module.setup.CommonProjectPostBuild.com.silabs.ss.framework.project.toolchain.core.default#com.silabs.ss.tool.ide.arm.toolchain.gnu.cdt:10.3.1.20210824.gcc" propertyScope="project">
+  <file name="matter_thread_ww2023_mat-204_lock_light_mad.slpb" builtin="true" generated="true"/>
+  <postbuildStep>$(commander) postbuild &quot;$(project)/matter_thread_ww2023_mat-204_lock_light_mad.slpb&quot; --parameter build_dir:&quot;$(builddir)&quot;</postbuildStep>
+</project>

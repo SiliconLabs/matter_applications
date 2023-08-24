@@ -3,13 +3,17 @@
 ## Overview
 
 This tutorial provides an alternative to the video presentation for the WorksWith 2023, MAT-204 presentation: Smarter Home Designs with Matter and Thread.
-We will go through the steps required to create a basic developement environment for creating an MAD (Matter accessory device), test it with a Matter ecosystem hub and modify it to add new functinality.
+We will go through the steps required to create a basic development environment for creating an MAD (Matter accessory device), test it with a Matter ecosystem hub and modify it to add new functionality.
 The guide below will provide information to:
 - Create a project from a sample app (lock example) and test it with your development hardware.
 - Create a Matter integration in the Google Developer Console.
 - Update your project to match your integration and test the sample project with it.
 - Modify the project to add new functionality (adding a light).
 - Test again your project using both functionalities with your Matter ecosystem hub.
+
+## WorksWith 2023 MAT-204 presentation
+
+You can view the WorksWith 2023 MAT-204 presentation [here](https://www.silabs.com/support/training/matter-device-development) and read the slides [here](https://www.silabs.com/documents/public/presentations/mat-204-smarter-home-designs-with-matter-and-thread.pdf) (PDF).
 
 ## Software Requirements
 
@@ -24,7 +28,7 @@ This example requires:
 - A hardware development board:
   - This example uses the [BRD4186C](https://www.silabs.com/development-tools/wireless/xg24-rb4186c-efr32xg24-wireless-gecko-radio-board "BRD4186C") with a WSTK
 - Google Nest Hub (2nd gen)
-- Android smart phone running GHA (Google Home App)
+- Android smartphone running GHA (Google Home App)
   - Already connected to your Nest Hub
 
 ## Supplemental Requirements
@@ -32,7 +36,7 @@ This example requires:
 This example requires:
 - A wireless network with Internet access for your Matter ecosystem hub and Android device to use.
 - An account for [Google's Developer Console](https://console.home.google.com/ "Google's Developer Console").
-  - Make sure the account used for the _Developer Console_, your Matter ecosystem hub and Android device are the same or linked together properly to allow access.
+  - Make sure the account used for the _Developer Console_, your Matter ecosystem hub and your Android device are the same or linked together properly to allow access.
 
 ## Guide
 
@@ -40,7 +44,7 @@ This example requires:
 
 #### Creating the sample project of a lock over thread
 
-Start by creating a sapmle project using the New Project Wizard.
+Start by creating a sample project using the New Project Wizard.
 ![open the new project wizard](readme.md_assets/images/ww2023_mat-204_section_1_step_01.png)
 
 Make sure to select the following information:
@@ -75,14 +79,14 @@ Choose the board you wish to work on; they are identified by a unique serial num
 
 ![select the desired board serial number](readme.md_assets/images/ww2023_mat-204_section_4_step_03.png)
 
-Go to the _Flash_ section and clear the flash of the test device to ensure removal of any previous testing, commissioning data, etc.
+Go to the _Flash_ section and clear the flash of the test device to ensure the removal of any previous testing, commissioning data, etc.
 
 ![go to the glash section](readme.md_assets/images/ww2023_mat-204_section_4_step_04.png)
 ![click on erase chip](readme.md_assets/images/ww2023_mat-204_section_4_step_05.png)
 
 Upload a pre-compiled bootloader firmware binary and the firmware binary of the test project.
 - A compatible bootloader firmware binary file is available with this example [here (s37)](/bootloader-storage-spiflash-single-1024k-BRD4186C-gsdk4.1.s37 "bootloader storage spiflash single 1024k BRD4186C gsdk4.1").
-- You can find the binary of your example application the project folder under the _GNU ARM v10.3.1 - Default_ folder.
+- You can find the binary of your example application in the project folder under the _GNU ARM v10.3.1 - Default_ folder.
 
 ![click the browse button to select the bootloader or project firmware files and click flash to upload it](readme.md_assets/images/ww2023_mat-204_section_4_step_06.png)
 
@@ -100,7 +104,7 @@ Name your project and click on _Create project_.
 
 ![name your project and click on create project](readme.md_assets/images/ww2023_mat-204_section_2_step_03.png)
 
-From the side bar, click _Develop_.
+From the sidebar, click _Develop_.
 
 ![click on develop in the side bar](readme.md_assets/images/ww2023_mat-204_section_2_step_04.png)
 
@@ -168,7 +172,7 @@ Click on the _Add_ button.
 
 ![](readme.md_assets/images/ww2023_mat-204_section_2_step_16.png)
 
-Choose to setup a new Matter enabled device.
+Choose to set up a new Matter-enabled device.
 
 ![](readme.md_assets/images/ww2023_mat-204_section_2_step_17.png)
 
@@ -188,7 +192,7 @@ Click on the middle button to open the camera and scan the QR code on the LCD sc
 
 ![](readme.md_assets/images/ww2023_mat-204_section_2_step_21.png)
 
-Click on the button to agree adding this device to your account.
+Click on the button to agree to add this device to your account.
 
 ![](readme.md_assets/images/ww2023_mat-204_section_2_step_22.png)
 
@@ -196,7 +200,7 @@ The Android device will now search for the test MAD.
 
 ![](readme.md_assets/images/ww2023_mat-204_section_2_step_23.png)
 
-Eventually it will connect to the device.
+Eventually, it will connect to the device.
 
 ![](readme.md_assets/images/ww2023_mat-204_section_2_step_24.png)
 
@@ -236,7 +240,7 @@ Finally, you'll be in your devices list and you should see your new test MAD, a 
 
 ![](readme.md_assets/images/ww2023_mat-204_section_2_step_33.png)
 
-Clicking the device's icon will toggle it's lock status. The image on the LCD and the LED next to it will change to match the new state.
+Clicking the device's icon will toggle its lock status. The image on the LCD and the LED next to it will change to match the new state.
 You can also use the matching button on the WSTK to toggle the status of the LCD, LED and device icon on the Android device, too.
 
 ![](readme.md_assets/images/ww2023_mat-204_section_2_step_34.png)
@@ -245,7 +249,7 @@ You can also use the matching button on the WSTK to toggle the status of the LCD
 
 ### Step 3 - Adding an extra endpoint
 
-#### Adding a prerequesite software component
+#### Adding a prerequisite software component
 
 From Simplicity Studio, open the project file by double-clicking the .slcp and use the filters to find and install the _Level Control Server Cluster_ under _Software Components_.
 
@@ -295,7 +299,7 @@ Under _Attribute Reporting_ change the _NameSupport and _CluisterRevision_ value
 
 ![](readme.md_assets/images/ww2023_mat-204_section_3_step_08.png)
 
-Disable the _Scenes_ cluster by selected _Not Enabled_ in the dropdown on the down. It will be removed from the list.
+Disable the _Scenes_ cluster by selecting _Not Enabled_ in the dropdown on the down. It will be removed from the list.
 
 ![](readme.md_assets/images/ww2023_mat-204_section_3_step_09.png)
 
@@ -307,8 +311,8 @@ Under _Attributes_ turn off the following four attributes:
 - EventList
 - AttributeList
 
-Change the _OnOff_ and _StartUpOnOff_ values for _Storage Option_ to _NVM_ from the dropdowns. Also change the _StartUpOnOff_ value for _Default_ to 0xFF.
-Note: You can ignore the out of range error, it is simply a UI glitch that will be corrected in a future update.
+Change the _OnOff_ and _StartUpOnOff_ values for _Storage Option_ to _NVM_ from the dropdowns. Also, change the _StartUpOnOff_ value for _Default_ to 0xFF.
+Note: You can ignore the out-of-range error, it is simply a UI glitch that will be corrected in a future update.
 
 Finally, change the _FeatureMap_ value for _Default_ to 1.
 
@@ -417,11 +421,11 @@ Add include for the _On/Off_ cluster server.
 
 ![](readme.md_assets/images/ww2023_mat-204_section_3_step_28.png)
 
-Add a define for the new LED. We'll be using LED 0, which is currently used as a status LED.
+Add a _define_ for the new LED. We'll be using LED 0, which is currently used as a status LED.
 
 ![](readme.md_assets/images/ww2023_mat-204_section_3_step_29.png)
 
-Add a LEDWidget to display the light endpoint status.
+Add an LEDWidget to display the light endpoint status.
 
 ![](readme.md_assets/images/ww2023_mat-204_section_3_step_30.png)
 
@@ -465,13 +469,13 @@ Note: This may not be required, but was used by the lighting example and thus le
 
 ![](readme.md_assets/images/ww2023_mat-204_section_3_step_39.png)
 
-Modify the Matter attribute callback to handle the ligh endpoint case.
+Modify the Matter attribute callback to handle the light endpoint case.
 We will add code for the dimming control but will not implement this feature in this tutorial.
 
 ![](readme.md_assets/images/ww2023_mat-204_section_3_step_40.png)
 
 Finally, add code for the On/Off cluster init callback.
-Note: This functions is not used in this example but required to exist.
+Note: This function is not used in this example but is required to exist.
 
 ![](readme.md_assets/images/ww2023_mat-204_section_3_step_41.png)
 
@@ -505,7 +509,7 @@ Finally, comment out all uses of that _LEDWidget_.
 
 You can find _demo-ui.c_ under _matter_2.0.0/examples/platform/silabs/display/demo-ui.c_.
 
-Add four new constants to define new images for the LCD to display the states of both endpoint (lock & light) simultaneously.
+Add four new constants to define new images for the LCD to display the states of both endpoints (lock & light) simultaneously.
 
 ![](readme.md_assets/images/ww2023_mat-204_section_3_step_50.png)
 
@@ -513,7 +517,7 @@ Modify the code to handle the display app function to allow for four states inst
 
 ![](readme.md_assets/images/ww2023_mat-204_section_3_step_51.png)
 
-Modify the call to add a second bollean operator to it (false on screen clear).
+Modify the call to add a second boolean operator to it (false on screen clear).
 
 ![](readme.md_assets/images/ww2023_mat-204_section_3_step_52.png)
 
@@ -521,7 +525,7 @@ Modify the call to add a second bollean operator to it (false on screen clear).
 
 You can find _demo-ui.h_ under _matter_2.0.0/examples/platform/silabs/display/demo-ui.h_.
 
-Modify the signarue of function _demoUIDisplayApp_ to include two boolean arguments instead of one.
+Modify the signature of function _demoUIDisplayApp_ to include two boolean arguments instead of one.
 
 ![](readme.md_assets/images/ww2023_mat-204_section_3_step_53.png)
 

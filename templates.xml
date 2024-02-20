@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ASCII"?>
+<model:MDescriptors xmlns:model="http://www.silabs.com/ss/Studio.ecore"> 
+  <descriptors name="MatterSensoryWakeWordOverThread" label="Matter - Sensory WakeWord detection over Thread"
+               description="This example showcases how to implement wake word detection to control the Light with your voice within a Matter over Thread">
+    <properties key="namespace" value="template.uc"/>
+    <properties key="keywords" value="Matter"/>
+    <properties key="solutionReferenceId" value="matter_thread_sensory_wakeword.SimplicityStudio.matter_thread_sensory_wakeword.slcp"/>
+    <properties key="projectFilePaths" value="matter_thread_sensory_wakeword/SimplicityStudio/matter_thread_sensory_wakeword.slcp"/>
+    <properties key="readmeFiles" value="matter_thread_sensory_wakeword/README.md"/>
+    <properties key="boardCompatibility" value="brd2601b"/>
+    <properties key="partCompatibility" value=".*efr32mg24.*"/>
+    <properties key="ideCompatibility" value="makefile-ide simplicity-ide"/>
+    <properties key="toolchainCompatibility" value="gcc"/>
+    <properties key="category" value="Matter Application"/>
+    <properties key="quality" value="PRODUCTION"/>
+    <properties key="stockConfigCompatibility" value="com.silabs.ss.framework.project.toolchain.core.default"/>
+    <properties key="filters" value="Type|SoC Project\ Difficulty|Advanced Wireless\ Technology|Matter"/>
+  </descriptors> 
+  </model:MDescriptors>

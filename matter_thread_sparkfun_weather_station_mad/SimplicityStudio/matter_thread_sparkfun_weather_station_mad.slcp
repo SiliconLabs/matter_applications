@@ -1,0 +1,260 @@
+project_name: matter_thread_sparkfun_weather_station_mad
+label: matter_thread_sparkfun_weather_station_mad
+description: >
+  Matter Weather Sensor App This example does not use LCD.
+package: Matter
+quality: production
+
+sdk_extension:
+- id: matter
+  version: 2.2.0
+- id: third_party_hw_drivers
+  version: 2.0.0
+
+readme:
+- path: ../README.md
+
+source:
+- path: ../src/AccessorsExtension.cpp
+  directory: src
+- path: ../src/AppTask.cpp
+  directory: src
+- path: ../src/matterextension.cpp
+  directory: src
+- path: ../src/main.cpp
+  directory: src
+- path: ../src/weather-station-cluster.cpp
+  directory: src
+- path: ../src/ZclCallbacks.cpp
+  directory: src
+
+include:
+- path: ../inc
+  file_list:
+  - path: AccessorsExtension.h
+  - path: AppConfig.h
+  - path: AppEvent.h
+  - path: AppTask.h
+  - path: callbackExtension.h
+  - path: CHIPProjectConfig.h
+  - path: ClusterExtension.h
+  - path: weather-station-cluster.h
+  directory: include
+
+toolchain_settings:
+- value: -std=gnu++17
+  option: gcc_c++_compiler_option
+
+component:
+- id: si70xx_driver
+- id: segger_rtt
+- id: brd2703a_a02
+- id: device_init
+- id: rail_util_pti
+- id: EFR32MG24B210F1536IM48
+
+- from: matter 
+  id: matter_platform_efr32
+- from: matter 
+  id: matter_groups
+- from: matter 
+  id: matter_group_key_mgmt
+- from: matter 
+  id: matter_descriptor
+- from: third_party_hw_drivers 
+  id: sparkfun_weather_station_rainfall
+- from: matter 
+  id: matter_sensor
+- from: matter 
+  id: matter_ethernet_network_diagnostics
+- from: matter 
+  id: silabs_factory_data_provider
+- from: matter 
+  id: matter_localization_configuration
+- from: matter 
+  id: matter_diagnostic_logs
+- from: matter 
+  id: matter_crypto
+- from: matter 
+  id: matter_basic_information
+- from: matter 
+  id: matter_ble
+- from: matter 
+  id: matter_network_commissioning
+- from: matter 
+  id: matter_operational_credentials
+- from: matter 
+  id: matter_switch
+- from: matter 
+  id: matter_administrator_commissioning
+- from: matter 
+  id: matter_time_format_localization
+- from: matter 
+  id: matter_wstk_leds
+- from: matter 
+  id: matter_thread_ftd
+- from: matter 
+  id: matter
+- from: matter 
+  id: matter_subscription_persistence
+- from: matter 
+  id: matter_ota_requestor
+- from: matter 
+  id: matter_software_diagnostics
+- from: matter 
+  id: matter_thread_example
+- from: matter 
+  id: matter_access_control
+- from: matter 
+  id: matter_general_commissioning
+- from: matter 
+  id: matter_identify
+- from: matter 
+  id: matter_gatt
+- from: matter 
+  id: matter_wifi_network_diagnostics
+- from: third_party_hw_drivers 
+  id: sparkfun_weather_station_wind_direction
+- from: matter 
+  id: matter_general_diagnostics
+- from: matter 
+  id: matter_thread_network_diagnostics
+- from: matter 
+  id: matter_configuration_over_swo
+- from: matter 
+  id: matter_ota_support
+- from: matter 
+  id: matter_user_label
+- from: matter 
+  id: matter_fixed_label
+- from: third_party_hw_drivers 
+  id: sparkfun_weather_station_wind_speed
+- from: matter 
+  id: matter_shell
+- from: matter 
+  id: app_common
+- from: matter 
+  id: matter_subscription_timeout_resumption
+
+- instance: [led0, led1]
+  id: simple_led
+- instance: [inst0]
+  id: i2cspm
+- instance: [btn0, btn1]
+  id: simple_button
+
+define:
+- name: CHIP_CRYPTO_PLATFORM
+  value: '1'
+- name: _WANT_REENT_SMALL
+  value: '1'
+- name: IS_DEMO_LIGHT
+  value: '1'
+- name: NVM3_DEFAULT_NVM_SIZE
+  value: '40960'
+- name: NVM3_DEFAULT_MAX_OBJECT_SIZE
+  value: '4092'
+
+template_contribution:
+- condition: [device_series_1]
+  name: memory_flash_start
+  priority: 0
+  value: 0
+- condition: [device_series_1]
+  name: memory_flash_size
+  priority: 0
+  value: 1046528
+- condition: [device_series_2]
+  name: memory_flash_start
+  priority: 0
+  value: 134242304
+- condition: [device_series_2]
+  name: memory_flash_size
+  priority: 0
+  value: 1540096
+
+requires:
+- condition: [device_series_1]
+  name: matter_drivers_series_1
+- condition: [device_series_2]
+  name: matter_drivers_series_2
+
+configuration:
+- name: OPENTHREAD_CONFIG_LOG_OUTPUT
+  value: OPENTHREAD_CONFIG_LOG_OUTPUT_APP
+- name: SL_BOARD_ENABLE_VCOM
+  value: '1'
+- condition: [glib]
+  name: SL_BOARD_ENABLE_DISPLAY
+  value: '1'
+- condition: [matter_thread_cert_libs]
+  name: SL_MBEDTLS_KEY_EXCHANGE_ECDHE_ECDSA_ENABLED
+  value: '1'
+- name: SL_MBEDTLS_KEY_EXCHANGE_PSK_ENABLED
+  value: '1'
+- condition: [matter_thread_coap_cert_libs]
+  name: OPENTHREAD_CONFIG_COAP_API_ENABLE
+  value: '1'
+- condition: [matter_thread_coap_cert_libs]
+  name: OPENTHREAD_CONFIG_COAP_OBSERVE_API_ENABLE
+  value: '1'
+- condition: [matter_thread_coap_cert_libs]
+  name: OPENTHREAD_CONFIG_COAP_SECURE_API_ENABLE
+  value: '1'
+- name: SL_STACK_SIZE
+  value: '4608'
+
+ui_hints:
+  highlight:
+  - path: README.md
+
+other_file:
+  - path : ../images/connection.png
+    directory: images
+  - path : ../images/create_sensor.png
+    directory: images
+  - path : ../images/zap_enpoints.png
+    directory: images
+  - path : ../images/zap_extension.png
+    directory: images
+  - path : ../images/create_project.png
+    directory: images
+  - path : ../images/create_project2.png
+    directory: images
+  - path : ../images/develop.png
+    directory: images
+  - path : ../images/add_integration.png
+    directory: images
+  - path : ../images/next_develop.png
+    directory: images
+  - path : ../images/next_setup.png
+    directory: images
+  - path : ../images/save_continue.png
+    directory: images
+  - path : ../images/finished_device.png
+    directory: images
+  - path : ../images/devices_tab_add.jpg
+    directory: images
+  - path : ../images/matter_enabled_device.jpg
+    directory: images
+  - path : ../images/linked_services.jpg
+    directory: images
+  - path : ../images/home_assistant.jpg
+    directory: images
+  - path :  ../matter_2.2.0/zzz_generated/app-common/app-common/zap-generated/callback.h
+    directory: matter_2.2.0/zzz_generated/app-common/app-common/zap-generated
+  - path :  ../matter_2.2.0/zzz_generated/app-common/app-common/zap-generated/ids/Clusters.h
+    directory: matter_2.2.0/zzz_generated/app-common/app-common/zap-generated/ids
+    
+config_file:
+  - path: ../config/common/weather-station-thread-app.zap
+    directory: common
+  - override:
+      component: i2cspm
+      file_id: i2cspm_config
+      instance: inst0
+    path: ../config/sl_i2cspm_inst0_config.h
+  - override:
+      component: sparkfun_weather_station_wind_speed
+      file_id: sparkfun_weather_station_wind_speed_config
+    path: ../config/sparkfun_weather_station_wind_speed_config.h

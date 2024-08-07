@@ -259,4 +259,4 @@ As for the custom MAD example that is advise to look at before going over this t
 ## References ##
 - https://cdn-shop.adafruit.com/datasheets/WS2811.pdf
 - https://github.com/project-chip/connectedhomeip
-- https://github.com/SiliconLabs/matter_applications_staging/tree/master/matter_thread_custom_mad
+-  https://github.com/SiliconLabs/matter_applications/tree/master/matter_thread_custom_mad

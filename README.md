@@ -21,6 +21,7 @@ The Silicon Labs Matter stack allows for a wide variety applications to be built
 - [Matter over Thread - Multi Switch Matter Accessory Device](/matter_thread_multi_switch_mad/README.md)
 - [Matter over Thread - CO Detector Matter Accessory Device](/matter_thread_co_detector_mad/README.md)
 - [Matter over Thread - Weather Station](/matter_thread_sparkfun_weather_station_mad/README.md)
+- [Matter over Thread - Color Lighting Device](/matter_thread_color_lighting/README.md)
 
 
 ## Documentation ##
